@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask import request
 from markupsafe import escape
 import datetime
-
+# https://www.digitalocean.com/community/tutorials/how-to-use-templates-in-a-flask-application
 
 app = Flask(__name__)
 
