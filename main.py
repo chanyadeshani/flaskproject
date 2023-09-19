@@ -1,25 +1,10 @@
 from flask import Flask, render_template
 from flask import request
 from markupsafe import escape
+import datetime
+
 
 app = Flask(__name__)
-
-@app.route("/")
-def index():
-    celsius = request.args.get("celsius", "")
-    if celsius:
-        fahrenheit = fahrenheit_from(celsius)
-    else:
-        fahrenheit = ""
-    return (
-        """<form action="" method="get">
-                Celsius temperature: <input type="text" name="celsius">
-                <input type="submit" value="Convert to Fahrenheit">
-            </form>"""
-        + "Fahrenheit: "
-        + fahrenheit
-    )
-
 
 '''
     """ < form action="" method="get" >
@@ -33,14 +18,28 @@ def index():
                 
                 
                 '''
-@app.route("/<int:celsius>")
-def fahrenheit_from(celsius):
-    """Convert Celsius to Fahrenheit degrees."""
-    fahrenheit = float(celsius) * 9 / 5 + 32
-    fahrenheit = round(fahrenheit, 3)  # Round to three decimal places
-    return str(fahrenheit)
+# ...
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/about/')
+def about():
+    return render_template('about.html')
+
+
+@app.route('/products/')
+def products():
+    products = ['This is the first product.',
+                'This is the second product.',
+                'This is the third product.',
+                'This is the fourth product.'
+                ]
+
+    return render_template('products.html', products=products)
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8080, debug=True)
+    app.run(debug=True)
 
